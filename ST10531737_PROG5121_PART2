@@ -1,0 +1,6 @@
+Repository part2
+Student information:Hlumelo Dwenga
+Student number: ST10531737
+Description: The MyChat Application is a Java-based messaging system whereby i had to update the maimApp, build the Message class and the MessageTestclass. The chatapp allows users to create messages, validate recipient numbers, check message length restrictions, generate unique message IDs and hashes, and simulate message sending operations.
+Features: The chatapp has a message creation, recipient validation, message length validation, message ID generation , message hash generation, and message sending simulation.
+How to run:  Open the project in netbeans. Build the app for it to run. After building run the project.
