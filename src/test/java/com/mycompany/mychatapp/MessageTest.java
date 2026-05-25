@@ -4,10 +4,7 @@
  */
 package com.mycompany.mychatapp;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,13 +17,14 @@ public class MessageTest {
     private Message message2;
 
     
+    @BeforeEach
     public void setUp() {
         message1 = new Message(1);
         message1.setRecipient("+27718693002");
         message1.setMessageText("Hi Mike, can you join us for dinner tonight?");
 
         message2 = new Message(2);
-        message2.setRecipient("08575975889");   
+        message2.setRecipient("08575975889");
         message2.setMessageText("Hi Keegan, did you receive the payment?");
     }
 
@@ -79,14 +77,14 @@ public class MessageTest {
     @Test
     public void testCreateMessageHash_correctFormat_endsWithExpectedWords() {
         String hash = message1.createMessageHash();
-        assertEquals("Hash should end with :1:HITONIGHT but was: " + hash,
-                   hash.endsWith(":1:HITONIGHT"));
+        assertTrue(hash.endsWith(":1:HITONIGHT"),
+                   "Hash should end with :1:HITONIGHT but was: " + hash);
     }
 
     @Test
     public void testCreateMessageHash_isUppercase() {
         String hash = message1.createMessageHash();
-        assertEquals("Hash must be entirely uppercase", hash.toUpperCase(), hash);
+        assertEquals(hash.toUpperCase(), hash, "Hash must be entirely uppercase");
     }
 
     @Test
@@ -96,10 +94,10 @@ public class MessageTest {
 
         for (int i = 0; i < messages.length; i++) {
             String hash = messages[i].createMessageHash();
-            assertEquals(
+            assertTrue(
+                hash.endsWith(expectedSuffixes[i]),
                 "Message " + (i + 1) + " hash should end with '"
-                    + expectedSuffixes[i] + "' but was: " + hash,
-                hash.endsWith(expectedSuffixes[i])
+                    + expectedSuffixes[i] + "' but was: " + hash
             );
         }
     }
@@ -113,7 +111,7 @@ public class MessageTest {
 
     @Test
     public void testCheckMessageID_generatedID_isExactly10Chars() {
-        assertEquals("checkMessageID() should return true", message1.checkMessageID());
+        assertTrue(message1.checkMessageID(), "checkMessageID() should return true");
     }
 
     // ====Testing sent Messages=====

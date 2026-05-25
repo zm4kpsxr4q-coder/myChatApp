@@ -141,37 +141,26 @@ public class Message {
     //disregard
     public String sentMessage() {
 
-        Scanner scanner = new Scanner(System.in);
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("1) Send Message");
+            System.out.println("2) Disregard Message");
+            System.out.println("3) Store Message");
 
-        System.out.println("1) Send Message");
-        System.out.println("2) Disregard Message");
-        System.out.println("3) Store Message");
+            int choice = scanner.nextInt();
 
-        int choice = scanner.nextInt();
-
-        switch (choice) {
-
-            case 1:
-
-                totalMessages++;
-
-                printMessageDetails();
-
-                return "Message successfully sent.";
-
-            case 2:
-
-                return "Press 0 to delete the message.";
-
-            case 3:
-
-                storeMessage();
-
-                return "Message successfully stored.";
-
-            default:
-
-                return "Invalid option.";
+            return switch (choice) {
+                case 1 -> {
+                    totalMessages++;
+                    printMessageDetails();
+                    yield "Message successfully sent.";
+                }
+                case 2 -> "Press 0 to delete the message.";
+                case 3 -> {
+                    storeMessage();
+                    yield "Message successfully stored.";
+                }
+                default -> "Invalid option.";
+            };
         }
     }
 
@@ -193,20 +182,16 @@ public class Message {
     // Store message
     public void storeMessage() {
 
-        try {
-
-            FileWriter file = new FileWriter("messages.json", true);
+        try (FileWriter file = new FileWriter("messages.json", true)) {
 
             file.write("Message ID: " + messageID + "\n");
             file.write("Recipient: " + recipient + "\n");
             file.write("Message: " + messageText + "\n");
             file.write("-----------------------\n");
 
-            file.close();
-
         } catch (IOException e) {
-
-            e.printStackTrace();
+            System.err.println("Error storing message: " + e.getMessage());
+            e.printStackTrace(System.err);
         }
     }
 }

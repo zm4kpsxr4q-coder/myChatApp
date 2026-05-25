@@ -19,7 +19,7 @@ public class Login {
     // Must contain "_" and be no more than 5 characters
     // ==============================================================
     public boolean checkUsername(String username) {
-        return username.contains("_") && username.length() <= 5;
+        return username != null && username.contains("_") && username.length() <= 5;
     }
 
     // ==============================================================
@@ -27,22 +27,22 @@ public class Login {
     // At least 8 characters, 1 capital, 1 number, 1 special char
     // ==============================================================
     public boolean checkPasswordComplexity(String password) {
+        if (password == null) {
+            return false;
+        }
 
         boolean hasCapital = false;
         boolean hasNumber = false;
         boolean hasSpecial = false;
 
         for (int i = 0; i < password.length(); i++) {
-
             char c = password.charAt(i);
 
             if (Character.isUpperCase(c)) {
                 hasCapital = true;
-            } 
-            else if (Character.isDigit(c)) {
+            } else if (Character.isDigit(c)) {
                 hasNumber = true;
-            } 
-            else if (!Character.isLetterOrDigit(c)) {
+            } else if (!Character.isLetterOrDigit(c)) {
                 hasSpecial = true;
             }
         }
@@ -55,7 +55,7 @@ public class Login {
     // Must start with +27 and be <= 12 characters
     // ==============================================================
     public boolean checkCellPhoneNumber(String phoneNumber) {
-        return phoneNumber.startsWith("+27") && phoneNumber.length() <= 12;
+        return phoneNumber != null && phoneNumber.startsWith("+27") && phoneNumber.length() <= 12;
     }
 
     // ==============================================================
@@ -88,7 +88,10 @@ public class Login {
     // 5. LOGIN USER
     // ==============================================================
     public boolean loginUser(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
+        return this.username != null
+                && this.password != null
+                && this.username.equals(username)
+                && this.password.equals(password);
     }
 
     // ==============================================================
@@ -102,15 +105,16 @@ public class Login {
         }
     }
 
-    boolean checkUserName(String abcdi) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    // Getters
+    public String getUsername() {
+        return username;
     }
 
-    boolean loginUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getPassword() {
+        return password;
     }
 
-    void registerUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 }
