@@ -26,6 +26,7 @@ public class MainApp {
             
             // Create an object of the login class so we can call its methods
             Login login = new Login();
+<<<<<<< Updated upstream
             
            // Call existing methods
               login.registerUser();
@@ -40,6 +41,10 @@ public class MainApp {
          }
             
             //- - - REGISTRATION SECTION - - -
+=======
+
+            // ========= REGISTRATION =================================
+>>>>>>> Stashed changes
             System.out.println("=== USER REGISTRATION ===");
             
             System.out.print("Enter a username: ");
@@ -54,6 +59,7 @@ String phone = input.nextLine();
             
             // Show the registration message
             System.out.println(response);
+<<<<<<< Updated upstream
             
             // - - - LOGIN SECTION - - -
             System.out.println("\n=== USER LOGIN ===");
@@ -70,3 +76,68 @@ System.out.println(loginMessage);
         }
 
 }
+=======
+
+            // FIX: updated string to match Login.registerUser() return value
+            if (!response.equals("Registration successful.")) return;
+
+            // ============== LOGIN ========================================
+            System.out.println("\n=== USER LOGIN ===");
+            System.out.print("Enter your username: ");
+            String loginUsername = input.nextLine();
+
+            System.out.print("Enter your password: ");
+            String loginPassword = input.nextLine();
+
+            boolean loggedIn = login.loginUser(loginUsername, loginPassword);
+            System.out.println(login.returningLoginStatus(loggedIn));
+
+            if (!loggedIn) return;
+
+            // ============= MESSAGING ===================================
+            // FIX: added messaging flow so MainApp actually uses Message.java
+            int messageNumber = 1;
+
+            while (true) {
+                System.out.println("\n=== NEW MESSAGE ===");
+                System.out.print("Enter recipient number (+27...): ");
+                String recipient = input.nextLine();
+
+                System.out.print("Enter your message: ");
+                String messageText = input.nextLine();
+
+                Message message = new Message(messageNumber, recipient, messageText);
+
+                String recipientCheck = message.checkRecipientCell(recipient);
+                System.out.println(recipientCheck);
+                if (!recipientCheck.equals("Cell phone number successfully added.")) continue;
+
+                String lengthCheck = message.checkMessageLength(messageText);
+                System.out.println(lengthCheck);
+                if (!lengthCheck.equals("Message ready to send.")) continue;
+
+                System.out.println("1 - Send  |  2 - Disregard  |  3 - Store");
+                System.out.print("Enter choice: ");
+
+                int choice;
+                try {
+                    choice = Integer.parseInt(input.nextLine().trim());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Enter 1, 2, or 3.");
+                    continue;
+                }
+
+                System.out.println(message.sentMessage(choice));
+                messageNumber++;
+
+                System.out.print("\nSend another message? (yes/no): ");
+                if (!input.nextLine().trim().equalsIgnoreCase("yes")) break;
+            }
+
+            // =========== FINAL REPORT ==================================
+            System.out.println("\n" + Message.printMessages());
+            System.out.println("Total messages sent: " + Message.returnTotalMessages());
+        }
+    }
+}
+>>>>>>> Stashed changes
