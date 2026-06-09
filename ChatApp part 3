@@ -1,0 +1,7 @@
+ST10531737_PROG5121_Part3
+Repository part3
+Student information: Hlumelo Dwenga
+Student number: ST10531737
+Institution: RoseBank International
+Description: MyChatApp is a messaging application that allows users to register and log in securely, send messages, store messages and disregard messages and manage message records through various search and reporting features.
+Features: mychatapp has a  User registration and login feature, Cell phone number and password validation, message ID generation and message hashing, Send,store , or disregard messages, save messages to a JSON file, Load stored messages from JSON, search messages by recipient or message ID, display the longest stored mesage, delete messages using a message hash, generate a full message reort feature.
